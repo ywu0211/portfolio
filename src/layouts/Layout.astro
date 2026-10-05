@@ -1,0 +1,23 @@
+---
+import '../styles/global.css';
+import { profile } from '../data/profile';
+interface Props { title?: string; description?: string; }
+const { title = 'Frontend foundations. Lasting impact.', description = `${profile.name} — frontend engineering, enterprise design systems, and thoughtful AI interfaces. Explore technical ownership, architecture, and cross-team collaboration.` } = Astro.props;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefined;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} · {profile.name}</title><meta name="description" content={description} />
+    <meta name="theme-color" content="#f6f5f0" /><link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:title" content={`${title} · ${profile.name}`} /><meta property="og:description" content={description} /><meta property="og:type" content="website" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header wrap"><a class="identity" href="/" aria-label={`${profile.name}, home`}><span class="monogram">yw<span>·</span></span><span>{profile.name}</span></a><nav aria-label="Main navigation"><a href="/#work">Selected work</a><a href="/about/">About & résumé</a><a class="nav-contact" href="/#contact">Let’s talk <span aria-hidden="true">↗</span></a></nav></header>
+    <main id="main"><slot /></main>
+    <footer class="wrap footer"><span>© {new Date().getFullYear()} {profile.name}</span><span>Built with intention. And Astro.</span><a href={profile.github}>GitHub <span aria-hidden="true">↗</span></a></footer>
+  </body>
+</html>
