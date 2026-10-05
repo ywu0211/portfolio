@@ -6,7 +6,7 @@ const { title = 'Frontend foundations. Lasting impact.', description = `${profil
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefined;
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title} · {profile.name}</title><meta name="description" content={description} />
@@ -14,12 +14,47 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefin
     <meta name="theme-color" content="#f6f5f0" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#171b18" media="(prefers-color-scheme: dark)" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>
+      (() => {
+        const allowed = ['system', 'light', 'dark'];
+        let mode = 'system';
+        try { const saved = localStorage.getItem('portfolio-theme'); if (allowed.includes(saved)) mode = saved; } catch {}
+        const preference = matchMedia('(prefers-color-scheme: dark)');
+        const apply = () => {
+          const theme = mode === 'system' ? (preference.matches ? 'dark' : 'light') : mode;
+          document.documentElement.dataset.theme = theme;
+          document.documentElement.dataset.themeMode = mode;
+          document.querySelectorAll('meta[name="theme-color"]').forEach(meta => {
+            meta.removeAttribute('media');
+            meta.setAttribute('content', theme === 'dark' ? '#171b18' : '#f6f5f0');
+          });
+          const select = document.querySelector('#theme-select');
+          if (select) select.value = mode;
+        };
+        apply();
+        preference.addEventListener('change', apply);
+        document.addEventListener('DOMContentLoaded', () => {
+          apply();
+          document.querySelector('#theme-select')?.addEventListener('change', event => {
+            mode = allowed.includes(event.target.value) ? event.target.value : 'system';
+            try { localStorage.setItem('portfolio-theme', mode); } catch {}
+            apply();
+          });
+        });
+        window.addEventListener('storage', event => {
+          if (event.key === 'portfolio-theme' || event.key === null) {
+            mode = allowed.includes(event.newValue) ? event.newValue : 'system';
+            apply();
+          }
+        });
+      })();
+    </script>
     {canonical && <link rel="canonical" href={canonical} />}
     <meta property="og:title" content={`${title} · ${profile.name}`} /><meta property="og:description" content={description} /><meta property="og:type" content="website" />
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
-    <header class="site-header wrap"><a class="identity" href="/" aria-label={`${profile.name}, home`}><span class="monogram">yw<span>·</span></span><span>{profile.name}</span></a><nav aria-label="Main navigation"><a href="/#work">Selected work</a><a href="/about/">About & résumé</a><a class="nav-contact" href="/#contact">Let’s talk <span aria-hidden="true">↗</span></a></nav></header>
+    <header class="site-header wrap"><a class="identity" href="/" aria-label={`${profile.name}, home`}><span class="monogram">yw<span>·</span></span><span>{profile.name}</span></a><div class="header-actions"><nav aria-label="Main navigation"><a href="/#work">Selected work</a><a href="/about/">About & résumé</a><a class="nav-contact" href="/#contact">Let’s talk <span aria-hidden="true">↗</span></a></nav><label class="theme-picker"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16Z" fill="currentColor" stroke="none"/></svg><select id="theme-select" aria-label="Color theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label></div></header>
     <main id="main"><slot /></main>
     <footer class="wrap footer"><span>© {new Date().getFullYear()} {profile.name}</span><span>Built with intention. And Astro.</span><a href={profile.github}>GitHub <span aria-hidden="true">↗</span></a></footer>
   </body>
