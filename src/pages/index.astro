@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { profile } from '../data/profile';
+---
+<Layout>
+  <section class="hero wrap">
+    <div class="eyebrow"><span class="status-dot"></span> Frontend engineering / Design systems</div>
+    <h1>Strong foundations.<br /><span class="serif">Thoughtful experiences.</span></h1>
+    <div class="hero-bottom"><p>I’m {profile.name}. I build the systems behind consistent, accessible interfaces — and help teams build better together.</p><a class="text-link" href="#work">Explore my work <span aria-hidden="true">↓</span></a></div>
+    <div class="expertise"><span>Design-system architecture</span><span>Frontend platforms</span><span>AI interfaces</span></div>
+  </section>
+  <section class="wrap work-section" id="work">
+    <div class="section-heading"><h2>Selected work</h2><span class="eyebrow">01 — 03 / Engineering in practice</span></div>
+    <a class="project project-elements" href="/work/elements/">
+      <div class="project-copy"><span class="eyebrow">01 / Enterprise design system</span><h3>Elements</h3><p>One shared foundation.<br />Many product experiences.</p><div class="tags"><span>Lit / Web Components</span><span>TypeScript</span><span>Nx</span></div><span class="project-cta">Read the case study <span aria-hidden="true">↗</span></span></div>
+      <div class="system-art" aria-label="Conceptual design-system architecture: tokens feed a shared component core and Angular and React wrappers"><div class="art-top"><span>ELEMENTS / SYSTEM MAP</span><span>v.01</span></div><div class="token-row"><i></i><i></i><i></i><i></i><span>Design tokens</span></div><div class="connector"></div><div class="core"><span class="core-icon" aria-hidden="true">✳</span><div><strong>Shared component core</strong><small>Lit + TypeScript</small></div><span class="core-code" aria-hidden="true">&lt;/&gt;</span></div><div class="split-line"></div><div class="frameworks"><span>Angular wrapper</span><span>React wrapper</span></div><div class="art-caption">CONSISTENT BY DESIGN. FLEXIBLE BY DEFAULT.</div></div>
+    </a>
+    <a class="project project-chat" href="/work/ai-chatbot/">
+      <div class="project-copy"><span class="eyebrow">02 / Conversational experience</span><h3>AI Customer<br />Chatbot Platform</h3><p>Making complex interactions<br />feel clear and human.</p><div class="tags"><span>AI UI</span><span>Interaction design</span><span>Accessibility</span></div><span class="project-cta">Read the case study <span aria-hidden="true">↗</span></span></div>
+      <div class="chat-art" aria-label="Illustrative conversation interface, with fictional content"><div class="chat-top"><span><i class="status-dot"></i> A little clarity</span><span aria-hidden="true">✳</span></div><div class="bubble user-bubble">Where should I start?</div><div class="bubble assistant-bubble"><span class="mini-label">ASSISTANT</span>Let’s take it one step at a time.<div class="illustration-lines"><i></i><i></i></div></div><div class="chat-composer">A thoughtful next step<span aria-hidden="true">↑</span></div><small>Concept illustration · fictional content</small></div>
+    </a>
+    <div class="future-project"><span class="eyebrow">03 / Next chapter</span><h3>Depth in the details.</h3><p>A closer look at complex components.<br />Future case study.</p><span class="future-icon" aria-hidden="true">↗</span></div>
+  </section>
+  <section class="wrap approach"><div><span class="eyebrow">Beyond the component</span><h2>Good systems make<br /><span class="serif">the whole team better.</span></h2></div><div class="principles"><article><span>01</span><div><h3>Architecture with a purpose</h3><p>Clear component contracts, shared tokens, and framework integration that respects how teams actually work.</p></div></article><article><span>02</span><div><h3>Quality as a shared practice</h3><p>WCAG accessibility, documentation, and thoughtful PR reviews belong in the development lifecycle.</p></div></article><article><span>03</span><div><h3>Ownership beyond the release</h3><p>Migration guidance, API governance, and mentoring help a platform remain useful as teams and products grow.</p></div></article></div></section>
+  <section class="contact wrap" id="contact"><span class="eyebrow">Let’s connect</span><h2>Building something<br /><span class="serif">that others build on?</span></h2><div class="contact-bottom"><p>Let’s talk about frontend platforms,<br />design systems, and thoughtful product engineering.</p><div class="contact-links">{profile.email && <a class="button" href={`mailto:${profile.email}`}>Say hello ↗</a>}<a class="button" href={profile.github}>Find me on GitHub ↗</a><a class="text-link" href="/about/">About & résumé →</a></div></div></section>
+</Layout>
