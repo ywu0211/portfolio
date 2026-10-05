@@ -10,7 +10,10 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefin
   <head>
     <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title} · {profile.name}</title><meta name="description" content={description} />
-    <meta name="theme-color" content="#f6f5f0" /><link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f6f5f0" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#171b18" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     {canonical && <link rel="canonical" href={canonical} />}
     <meta property="og:title" content={`${title} · ${profile.name}`} /><meta property="og:description" content={description} /><meta property="og:type" content="website" />
   </head>
