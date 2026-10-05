@@ -1,6 +1,6 @@
 # Personal engineering portfolio
 
-An Astro + TypeScript static portfolio for **ywu0211**. Original CSS illustrations, responsive layouts, semantic HTML, reduced-motion support, print styling, and no client-side framework runtime. Home and case studies ship without application JavaScript. The about page has a small print action.
+An Astro + TypeScript static portfolio for **ywu0211**. Original CSS illustrations, responsive layouts, semantic HTML, reduced-motion support, print styling, and no client-side framework runtime. A small early script applies the saved System, Light, or Dark preference before rendering. The header selector defaults to System and stores the choice in browser local storage; system appearance changes and changes from another tab are reflected immediately. The about page also has a small print action.
 
 ## Run locally
 
@@ -59,3 +59,4 @@ Fonts currently load from Google Fonts with system fallbacks. The layout remains
 ## Add the third study
 
 Create a new page in `src/pages/work/` using the shared `Layout`, then replace the non-clickable future-study row on the home page with a link. Keep employer-sensitive implementation details out of the public repository.
+
